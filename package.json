@@ -1,0 +1,46 @@
+{
+  "name": "next-client-attr-webpack-plugin",
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "postinstall": "pnpm build",
+    "build": "tsc --build",
+    "clean": "pnpm exec rm -rf dist",
+    "dev": "pnpm --filter=\"example\" dev"
+  },
+  "devDependencies": {
+    "@babel/generator": "^7.6.8",
+    "@babel/parser": "^7.26.5",
+    "@babel/traverse": "^7.20.6",
+    "@babel/types": "^7.26.5",
+    "@types/babel__generator": "^7.6.8",
+    "@types/babel__traverse": "^7.20.6",
+    "@types/node": "^22.10.5",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.3",
+    "webpack": "^5.97.1",
+    "webpack-virtual-modules": "^0.6.2"
+  },
+  "peerDependencies": {
+    "@babel/generator": ">=7.0.0",
+    "@babel/parser": ">=7.0.0",
+    "@babel/traverse": ">=7.0.0",
+    "webpack": ">=5.0.0",
+    "webpack-virtual-modules": ">=0.6.0"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 100
+  }
+}
