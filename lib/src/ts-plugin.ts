@@ -91,9 +91,7 @@ function createTSPlugin({ typescript }: { typescript: typeof ts }) {
       }
       const namedBindings = importDecl.importClause.namedBindings;
       if (namedBindings && typescript.isNamedImports(namedBindings)) {
-        namedBindings.elements.forEach((element) => {
-          importedNames.add(element.name.text);
-        });
+        namedBindings.elements.forEach((element) => importedNames.add(element.name.text));
       }
     }
 
@@ -102,9 +100,8 @@ function createTSPlugin({ typescript }: { typescript: typeof ts }) {
         const tagName = typescript.isJsxElement(node)
           ? node.openingElement.tagName.getText()
           : node.tagName.getText();
-        if (importedNames.has(tagName)) {
-          usages.push(node);
-        }
+
+        if (importedNames.has(tagName)) usages.push(node);
       }
       typescript.forEachChild(node, visit);
     }
@@ -132,7 +129,7 @@ function createTSPlugin({ typescript }: { typescript: typeof ts }) {
         const type = checker.getTypeAtLocation(expression);
         const propName = prop.name.getText();
 
-        if (!isSerializableType(propName, type)) {
+        if (!isSerializableType(propName, type, expression.getText())) {
           const diagnostic = createDiagnostic(prop, type, checker);
           diagnostics.push(diagnostic);
         }
@@ -160,14 +157,15 @@ function createTSPlugin({ typescript }: { typescript: typeof ts }) {
     };
   }
 
-  function isSerializableType(propName: string, type: ts.Type): boolean {
+  function isSerializableType(propName: string, type: ts.Type, text?: string): boolean {
     if (type.getCallSignatures().length) return isServerAction(propName);
     return (
       isPrimitive(type) ||
       isSerializableIterable(type) ||
       isPlainObject(type) ||
       isJsxElement(type) ||
-      isPromise(type)
+      isPromise(type) ||
+      isRegisteredSymbol(type, text)
     );
   }
 
@@ -192,6 +190,11 @@ function createTSPlugin({ typescript }: { typescript: typeof ts }) {
     const symbol = type.getSymbol();
     if (!symbol) return true;
     return symbol.name === 'Object' || symbol.name === '__object';
+  }
+
+  function isRegisteredSymbol(type: ts.Type, text?: string): boolean {
+    if (!(type.flags & typescript.TypeFlags.ESSymbol)) return false;
+    return text?.includes('Symbol.for') ?? true;
   }
 
   function isServerAction(propName: string): boolean {
