@@ -56,8 +56,16 @@ function loader(this: LoaderContext<LoaderOptions>, source: string) {
             const importPath = node.moduleSpecifier.getText();
             exportStatement = `export { ${usedComponents.join(', ')} } from ${importPath};`;
           } else {
-            exportStatement = exportStatement.replace(/import/, 'export');
-            exportStatement = exportStatement.replace(/\s+with\s*{[^}]*}/g, '');
+            const importPath = node.moduleSpecifier.getText();
+            const clientExports: string[] = [];
+
+            if (node.importClause?.name) clientExports.push('default');
+            if (namedBindings && ts.isNamedImports(namedBindings)) {
+              const namedExports = namedBindings.elements.map((element) => element.name.text);
+              clientExports.push(...namedExports);
+            }
+
+            exportStatement = `export { ${clientExports.join(', ')} } from ${importPath};`;
           }
 
           const projectRoot = findProjectRoot();
