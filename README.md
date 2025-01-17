@@ -2,16 +2,9 @@
 
 This Webpack plugin enables the use of an [import attribute](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import/with) to define client boundaries in your React Server Components.
 
-```tsx
-// src/app/page.tsx
-import { Counter } from '@/components/counter' with { use: 'client' };
+The included TypeScript plugin errors when non-serializable props are passed to these client components and a `'use client'` [virtual module](https://github.com/sysgears/webpack-virtual-modules) is generated for the component. This module is added to your bundle, replacing the original import path with the virtual module path.
 
-export default function Page() {
-  return <Counter />;
-}
-```
-
-A `'use client'` [virtual module](https://github.com/sysgears/webpack-virtual-modules) is generated for the component. This module is added to your bundle, replacing the original import path with the virtual module path.
+<video src="https://github.com/user-attachments/assets/9ca56ea8-31ac-4225-95bb-2ded326d8054" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit" style="max-height:640px; min-height: 200px"></video>
 
 ### Installation (Coming Soon)
 
@@ -26,14 +19,24 @@ To enable the plugin, update your Next.js Webpack configuration:
 
 ```javascript
 // next.config.js
-const NextClientAttrWebpackPlugin = require('next-client-attr-webpack-plugin');
+const createClientAttrPlugin = require('next-client-attr-webpack-plugin');
 
 module.exports = {
   webpack: (config) => {
-    config.plugins.push(new NextClientAttrWebpackPlugin());
+    config.plugins.push(createClientAttrPlugin());
     return config;
   },
 };
+```
+
+Add the typescript plugin to your `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "plugins": [{ "name": "next" }, { "name": "next-client-attr-webpack-plugin" }]
+  }
+}
 ```
 
 ### Example
@@ -56,7 +59,7 @@ function Counter() {
 }
 ```
 
-Use the `use: 'client'` attribute to establish a client/server boundary when importing the component in an RSC (usually your routes):
+Use the `use: 'client'` attribute to establish a client/server boundary when importing the component in an RSC:
 
 ```tsx
 // src/app/page.tsx

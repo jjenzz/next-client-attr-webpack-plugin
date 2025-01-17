@@ -1,9 +1,8 @@
 import type { Compiler } from 'webpack';
 import VirtualModulesPlugin from 'webpack-virtual-modules';
-import { fileURLToPath } from 'node:url';
-import { dirname, resolve } from 'node:path';
+import { resolve } from 'node:path';
 
-class WebpackClientBoundaryPlugin {
+export class ClientAttrPlugin {
   private virtualModules: VirtualModulesPlugin;
   private generatedFiles: Map<string, string>;
 
@@ -14,9 +13,6 @@ class WebpackClientBoundaryPlugin {
 
   apply(compiler: Compiler) {
     this.virtualModules.apply(compiler);
-
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = dirname(__filename);
 
     compiler.options.module.rules.unshift({
       test: /\.[jt]sx?$/,
@@ -32,5 +28,3 @@ class WebpackClientBoundaryPlugin {
     });
   }
 }
-
-export default WebpackClientBoundaryPlugin;

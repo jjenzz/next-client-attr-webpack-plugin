@@ -6,12 +6,19 @@ import { Button } from './button';
  * Counter
  * -----------------------------------------------------------------------------------------------*/
 
-function Counter() {
+function Counter(props: { onIncrement?: () => void }) {
   const [count, setCount] = React.useState(0);
   return (
     <div className="text-center flex flex-col gap-4">
       {count}
-      <Button onClick={() => setCount((count) => count + 1)}>increment</Button>
+      <Button
+        onClick={() => {
+          setCount((count) => count + 1);
+          props.onIncrement?.();
+        }}
+      >
+        increment
+      </Button>
     </div>
   );
 }

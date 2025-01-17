@@ -1,9 +1,10 @@
 import type { NextConfig } from 'next';
-import WebpackClientBoundaryPlugin from 'next-client-attr-webpack-plugin';
+import createClientAttrPlugin from 'next-client-attr-webpack-plugin';
 
 const nextConfig: NextConfig = {
+  eslint: {},
   webpack(config) {
-    config.plugins.push(new WebpackClientBoundaryPlugin());
+    config.plugins.push(createClientAttrPlugin());
     return config;
   },
 };

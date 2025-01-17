@@ -12,7 +12,7 @@
   "dependencies": {
     "client-only": "^0.0.1",
     "next": "15.1.4",
-    "next-client-attr-webpack-plugin": "link:../",
+    "next-client-attr-webpack-plugin": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

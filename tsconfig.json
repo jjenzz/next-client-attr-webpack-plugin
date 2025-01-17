@@ -1,19 +1,9 @@
 {
-  "include": ["src"],
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "lib": ["ES2020"],
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
-    "declaration": true,
-    "outDir": "./dist",
-    "noEmitOnError": true,
-    "sourceMap": true,
-    "verbatimModuleSyntax": true
   }
 }
