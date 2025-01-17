@@ -1,6 +1,10 @@
 {
   "private": true,
   "license": "MIT",
+  "author": {
+    "name": "jjenzz",
+    "email": "175330+jjenzz@users.noreply.github.com"
+  },
   "scripts": {
     "postinstall": "pnpm build",
     "build": "pnpm --filter=\"next-client-attr-webpack-plugin\" build",
