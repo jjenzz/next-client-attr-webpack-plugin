@@ -84,14 +84,17 @@ function createTSPlugin({ typescript }: { typescript: typeof ts }) {
   ): Array<ts.JsxElement | ts.JsxSelfClosingElement> {
     const usages: Array<ts.JsxElement | ts.JsxSelfClosingElement> = [];
     const importedNames = new Set<string>();
+    const namespaceImport = new Set<string>();
 
     if (importDecl.importClause) {
-      if (importDecl.importClause.name) {
-        importedNames.add(importDecl.importClause.name.text);
-      }
       const namedBindings = importDecl.importClause.namedBindings;
-      if (namedBindings && typescript.isNamedImports(namedBindings)) {
-        namedBindings.elements.forEach((element) => importedNames.add(element.name.text));
+      if (importDecl.importClause.name) importedNames.add(importDecl.importClause.name.text);
+      if (namedBindings) {
+        if (typescript.isNamedImports(namedBindings)) {
+          namedBindings.elements.forEach((element) => importedNames.add(element.name.text));
+        } else if (typescript.isNamespaceImport(namedBindings)) {
+          namespaceImport.add(namedBindings.name.text);
+        }
       }
     }
 
@@ -100,9 +103,10 @@ function createTSPlugin({ typescript }: { typescript: typeof ts }) {
         const tagName = typescript.isJsxElement(node)
           ? node.openingElement.tagName.getText()
           : node.tagName.getText();
-
-        if (importedNames.has(tagName)) usages.push(node);
+        const isNamespaced = [...namespaceImport].some((ns) => tagName.startsWith(ns + '.'));
+        if (importedNames.has(tagName) || isNamespaced) usages.push(node);
       }
+
       typescript.forEachChild(node, visit);
     }
 
