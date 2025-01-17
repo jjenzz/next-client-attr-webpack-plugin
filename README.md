@@ -2,7 +2,7 @@
 
 This Webpack plugin enables the use of an [import attribute](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import/with) to define client boundaries in your React Server Components.
 
-The included TypeScript plugin errors when non-serializable props are passed to these client components and a `'use client'` [virtual module](https://github.com/sysgears/webpack-virtual-modules) is generated for the component. This module is added to your bundle, replacing the original import path with the virtual module path.
+A `'use client'` [virtual module](https://github.com/sysgears/webpack-virtual-modules) is generated for the component and the included TypeScript plugin errors when non-serializable props are passed to the client component.
 
 <video src="https://github.com/user-attachments/assets/9ca56ea8-31ac-4225-95bb-2ded326d8054" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit" style="max-height:640px; min-height: 200px"></video>
 
@@ -38,6 +38,8 @@ Add the typescript plugin to your `tsconfig.json`:
   }
 }
 ```
+
+If you're using VSCode or Cursor, remember to [enable your workspace version of typescript](https://code.visualstudio.com/docs/typescript/typescript-compiling#_using-the-workspace-version-of-typescript).
 
 ### Example
 
