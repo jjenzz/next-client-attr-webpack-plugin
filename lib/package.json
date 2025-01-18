@@ -3,10 +3,14 @@
   "version": "0.0.1",
   "main": "./dist/index.js",
   "sideEffects": false,
+  "repository": "https://github.com/jjenzz/next-client-attr-webpack-plugin",
   "files": [
     "dist",
     "README.md"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup",
     "typecheck": "tsc --noEmit"

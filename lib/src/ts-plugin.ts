@@ -180,7 +180,7 @@ class ClientAttrPlugin {
   }
 
   #isServerAction(propName: string): boolean {
-    return propName.endsWith('Action');
+    return propName === 'action' || propName.endsWith('Action');
   }
 
   #isJsxElement(type: ts.Type): boolean {
