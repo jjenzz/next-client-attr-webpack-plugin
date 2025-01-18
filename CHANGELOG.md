@@ -1,3 +1,15 @@
+# v0.0.2 (Sat Jan 18 2025)
+
+#### 🐛 Bug Fix
+
+- prevent typescript errors for form actions [#4](https://github.com/jjenzz/next-client-attr-webpack-plugin/pull/4) ([@jjenzz](https://github.com/jjenzz))
+
+#### Authors: 1
+
+- Jenna Smith ([@jjenzz](https://github.com/jjenzz))
+
+---
+
 # v0.0.1 (Fri Jan 17 2025)
 
 #### 🚀 Enhancement
