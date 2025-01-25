@@ -1,3 +1,15 @@
+# v0.0.3 (Sat Jan 25 2025)
+
+#### 🚀 Enhancement
+
+- add ci support for ts error reporting [#7](https://github.com/jjenzz/next-client-attr-webpack-plugin/pull/7) ([@jjenzz](https://github.com/jjenzz))
+
+#### Authors: 1
+
+- Jenna Smith ([@jjenzz](https://github.com/jjenzz))
+
+---
+
 # v0.0.2 (Sat Jan 18 2025)
 
 #### 🐛 Bug Fix
