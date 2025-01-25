@@ -1,6 +1,6 @@
 {
   "name": "next-client-attr-webpack-plugin",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "./dist/index.js",
   "sideEffects": false,
   "repository": "https://github.com/jjenzz/next-client-attr-webpack-plugin",
