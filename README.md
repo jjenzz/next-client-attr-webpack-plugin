@@ -8,6 +8,7 @@ A Webpack plugin that simplifies client/server boundaries in React Server Compon
 
 - [Installation](#user-content-installation)
 - [Example](#user-content-example)
+- [Continuous Integration](#user-content-continuous-integration)
 - [Why does this exist?](#user-content-why-does-this-exist)
 
 ## Installation
@@ -74,6 +75,20 @@ export default function Page() {
   return <Counter />;
 }
 ```
+
+## Continuous Integration
+
+Since TypeScript plugins aren't executed during `tsc` builds, you'll need to run the client attribute checks separately with `next-client-attr`. For example, add the following to your typechecking script:
+
+```json
+{
+  "scripts": {
+    "typecheck": "next-client-attr && tsc --noEmit"
+  }
+}
+```
+
+This will first validate your client attributes and then run the TypeScript compiler checks.
 
 ## Why does this exist?
 

@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "next-client-attr && tsc --noEmit"
   },
   "dependencies": {
     "client-only": "^0.0.1",

@@ -27,9 +27,9 @@ class ClientAttrPlugin {
   #typescript: typeof ts;
   #checker: ts.TypeChecker;
 
-  constructor(typescript: typeof ts, info: ts.server.PluginCreateInfo) {
+  constructor(typescript: typeof ts, checker: ts.TypeChecker) {
     this.#typescript = typescript;
-    this.#checker = info.languageService.getProgram()?.getTypeChecker()!;
+    this.#checker = checker;
   }
 
   public getSemanticDiagnostics(sourceFile: ts.SourceFile): ts.Diagnostic[] {
@@ -206,7 +206,8 @@ function createTSPlugin({ typescript }: { typescript: typeof ts }) {
       proxy[k] = (...args: Array<any>) => (ls[k] as any).apply(ls, args);
     }
 
-    const plugin = new ClientAttrPlugin(typescript, info);
+    const checker = info.languageService.getProgram()?.getTypeChecker()!;
+    const plugin = new ClientAttrPlugin(typescript, checker);
 
     proxy.getSemanticDiagnostics = (fileName: string) => {
       const prior = ls.getSemanticDiagnostics(fileName);
@@ -224,4 +225,4 @@ function createTSPlugin({ typescript }: { typescript: typeof ts }) {
 
 /* ---------------------------------------------------------------------------------------------- */
 
-export { createTSPlugin };
+export { ClientAttrPlugin, createTSPlugin };
