@@ -4,6 +4,9 @@
   "main": "./dist/index.js",
   "sideEffects": false,
   "repository": "https://github.com/jjenzz/next-client-attr-webpack-plugin",
+  "bin": {
+    "next-client-attr": "./dist/bin/check.js"
+  },
   "files": [
     "dist",
     "README.md"
